@@ -1,9 +1,9 @@
 import React, { useState, useRef } from 'react';
 import { FileSpreadsheet, Plus, X, ArrowRight, Loader2, CheckCircle2, Download } from 'lucide-react';
 
-// PLACEHOLDER: Replace with your actual Google Apps Script URL
-const API_URL = 'https://script.google.com/macros/s/AKfycbxVOfzf7M-hyz54r_9xnuoEfcGqj9jUJ_2wTx7-GAnz556No1fCjM-WGCcP9ZJ7BAosVQ/exec';
+const DEPLOYMENT_ID = 'AKfycbxVOfzf7M-hyz54r_9xnuoEfcGqj9jUJ_2wTx7-GAnz556No1fCjM-WGCcP9ZJ7BAosVQ';
 const API_TOKEN = '1234';
+const API_URL = `https://script.google.com/macros/s/${DEPLOYMENT_ID}/exec?token=${encodeURIComponent(API_TOKEN)}&id=${encodeURIComponent(DEPLOYMENT_ID)}`;
 
 export default function ExcelUploader({ onConversionSuccess }) {
   const [file, setFile] = useState(null);
@@ -80,6 +80,8 @@ export default function ExcelUploader({ onConversionSuccess }) {
         method: 'POST',
         body: JSON.stringify({
           token: API_TOKEN,
+          id: DEPLOYMENT_ID,
+          deploymentId: DEPLOYMENT_ID,
           action: "import",
           csv: csvText
         })
